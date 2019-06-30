@@ -1,7 +1,7 @@
-package demo.service.impl;
+package demo.api.service.impl;
 
+import demo.api.service.LoginService;
 import com.alibaba.fastjson.JSONObject;
-import demo.service.LoginService;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -11,7 +11,7 @@ public class LoginServiceImpl implements LoginService {
     public JSONObject login(String username, String password) {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("code", "0");
-        jsonObject.put("msg", "");
+        jsonObject.put("msg", "登录成功");
         return jsonObject;
     }
 
