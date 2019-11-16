@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--
+        Bean的配置元数据
+        ①.id/name: bean的唯一标识(The unique identifier for a bean. A bean id may not be used more than once
+	       within the same <beans> element.)
+        ②.class: 实现bean的类路径
+        ③.prototype: 作用域
+           a.singleton(默认): 单例模式,每次返回的bean实例相同,相同与全局对象(容器创建时bean已存在)
+           b.prototype: 每次返回一个新的bean实例,相当于每次new一个对象(获取bean时才会创建这个实例)
+        ④.life cycle: 生命周期
+           a.init-method: bean初始化时被调用(singleton单例：容器创建时初始化,prototype默认getBean时初始化)
+           b.destroy-method: bean销毁时被调用
+    -->
+    <bean id="helloWorld" class="demo.spring.test.HelloWorld" init-method="init" destroy-method="destroy">
+        <property name="message" value="Hello World And You"></property>
+    </bean>
+
+    <bean id="helloWorld1" class="demo.spring.test.HelloWorld" scope="prototype" init-method="init" destroy-method="destroy">
+        <property name="message" value="Second Hello"></property>
+    </bean>
+</beans>

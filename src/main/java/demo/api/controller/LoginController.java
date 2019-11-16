@@ -26,6 +26,6 @@ public class LoginController {
         if(result.hasErrors()) {
             return new HttpResult("-1", result);
         }
-        return new HttpResult("0","登录成功");
+        return new HttpResult("0","接收反馈信息成功");
     }
 }

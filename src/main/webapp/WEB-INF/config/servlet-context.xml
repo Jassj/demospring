@@ -10,16 +10,15 @@
        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <!--启用spring注解-->
-    <!--<context:annotation-config/>-->
     <context:component-scan base-package="demo.api.controller"/>
     <context:component-scan base-package="demo.api.service"/>
 
     <mvc:annotation-driven><!--启用MVC配置项,单独使用则注册一系列SpringMVC的基础beans,并适应类路径上可用的依赖项-->
         <mvc:message-converters><!--MVC的消息转换bean,根据spring-mvc.xsd文件进行配置,xsd:element:name属性值对应标签名,xsd:attrubute对应标签的属性值-->
             <bean id="mappingJackson2HttpMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-                <!--基于设值函数的依赖注入,AbstractHttpMessageConverter抽象类中定义了private List<MediaType> supportedMediaTypes = Collections.emptyList();
-                    默认为空,必须配置属性值,否则抛出MediaType List must not be empty异常-->
                 <property name="supportedMediaTypes">
+                    <!--基于设值函数的依赖注入,AbstractHttpMessageConverter抽象类中定义了private List<MediaType> supportedMediaTypes = Collections.emptyList();
+                        默认为空,必须配置属性值,否则抛出MediaType List must not be empty异常-->
                     <list>
                         <value>application/json</value><!--用于json请求/响应体与java对象的适配-->
                     </list>
@@ -28,9 +27,9 @@
         </mvc:message-converters>
     </mvc:annotation-driven>
 
-<!--    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-    <property name="prefix" value="/WEB-INF/view/"/>
-    <property name="suffix" value=".html"/>
-    </bean>-->
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/view/"/>
+        <property name="suffix" value=".html"/>
+    </bean>
 
 </beans>
