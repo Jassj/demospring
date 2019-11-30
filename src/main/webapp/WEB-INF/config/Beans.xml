@@ -1,7 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!--
+        扫描包路径下带有注解的类并自动注册为Bean,包含以下注解：
+        @Component   组件,没有明确的定位
+        @Repository  数据访问层(dao)
+        @Service     业务实现层(service)
+        @Controller  控制器(展示层)
+        @Configuration
+    -->
+    <context:component-scan base-package="demo.spring.aop"/>
 
     <!--
         Bean的配置元数据
@@ -9,17 +26,60 @@
 	       within the same <beans> element.)
         ②.class: 实现bean的类路径
         ③.prototype: 作用域
-           a.singleton(默认): 单例模式,每次返回的bean实例相同,相同与全局对象(容器创建时bean已存在)
-           b.prototype: 每次返回一个新的bean实例,相当于每次new一个对象(获取bean时才会创建这个实例)
+           a.singleton(默认): 单例模式,每次返回的bean实例相同,相当于全局对象(创建容器时同时创建bean对象)
+           b.prototype: 每次返回一个新的bean实例,相当于每次new一个对象(getBean时才会创建这个bean的实例)
+           ...可扩展 Todo request、session、global-session
         ④.life cycle: 生命周期
-           a.init-method: bean初始化时被调用(singleton单例：容器创建时初始化,prototype默认getBean时初始化)
+           a.init-method: bean初始化时被调用(singleton单例：容器创建时初始化bean,prototype默认getBean时初始化bean)
            b.destroy-method: bean销毁时被调用
+           c.<beans>标签增加default-init-method,default-destroy-method属性,实现全局默认初始化和销毁
+        ...可扩展 Todo 后置处理器和继承
     -->
     <bean id="helloWorld" class="demo.spring.test.HelloWorld" init-method="init" destroy-method="destroy">
-        <property name="message" value="Hello World And You"></property>
+        <property name="message" value="First Hello World"/>
     </bean>
 
     <bean id="helloWorld1" class="demo.spring.test.HelloWorld" scope="prototype" init-method="init" destroy-method="destroy">
-        <property name="message" value="Second Hello"></property>
+        <property name="message" value="Second Hello World"/>
     </bean>
+
+    <!--
+        autowired: 自动装配(Spring容器主导进行匹配bean的依赖注入,可靠性存在问题,容易造成混乱,使用精确匹配更合适)
+        ①.<bean>标签的属性autowire实现自动注入
+            a.byName 通过类中属性名和设值方法关联beanID进行自动装配
+            b.byType 通过类中属性类关联bean类型进行自动装配,当声明两个相同类型bean时无法自动装配【匹配到多个可注入bean,无法自动注入的异常】
+            c.constructor 构造函数的自动装配  ...可扩展 Todo
+    -->
+    <bean id="autowireTest" class="demo.spring.test.AutowireTest" autowire="byName"/>
+
+    <!--
+        激活Spring相关注解@Require、@Autowired、@Qualifier、JSR 250的@Resource等
+        @Todo Spring内置事件和自定义事件
+    -->
+    <context:annotation-config/>
+    <bean id="student" class="demo.spring.test.Student">
+        <property name="name" value="Leo"/>
+    </bean>
+
+    <!--
+        AOP：面向切面的编程
+        ①.声明切面: aop:aspect,一个提供横切需求APIs的模块
+        ②.声明切入点：aop:pointcut,程序中使用AOP的点(方法)
+        ③.声明建议：aop:before、aop:after、aop:after-returning、aop:after-throwing、aop:around
+    -->
+    <aop:aspectj-autoproxy/>  <!--开启对@AspectJ注解的支持-->
+    <bean id="aopTest" class="demo.spring.test.AopTest">
+    </bean>
+    <aop:config>
+        <aop:aspect id="log" ref="loggingAop">
+            <aop:pointcut id="businessService" expression="execution(* demo.spring.test.AopTest.setNumber(..))" />
+            <aop:before pointcut-ref="businessService" method="beforeAdvice"/>
+            <aop:after pointcut-ref="businessService" method="afterAdvice"/>
+            <!--<aop:after-returning pointcut-ref="businessService" returning="retVal" method="afterReturningAdvice"/>-->
+            <aop:after-throwing pointcut-ref="businessService" throwing="ex" method="AfterThrowingAdvice"/>
+        </aop:aspect>
+    </aop:config>
+
+    <bean id="loggingAop" class="demo.spring.aop.LoggingAop"/>
+
 </beans>

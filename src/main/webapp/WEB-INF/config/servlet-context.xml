@@ -9,7 +9,9 @@
        http://www.springframework.org/schema/mvc
        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <!--启用spring注解-->
+    <!--开启注解：全局模式-->
+    <context:annotation-config/>
+    <!--启用spring注解：指定包路径-->
     <context:component-scan base-package="demo.api.controller"/>
     <context:component-scan base-package="demo.api.service"/>
 
