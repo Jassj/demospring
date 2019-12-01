@@ -3,9 +3,8 @@ package demo.spring.test;
 import java.util.List;
 
 /**
- * @author yuanjie
- * @description 依赖注入测试bean
- * @date 2019/11/17 21:10
+ * description: 依赖注入测试bean
+ * @author yuanjie 2019/11/17 21:10
  */
 public class DependenceTestBean {
     private HelloWorld helloWorld;

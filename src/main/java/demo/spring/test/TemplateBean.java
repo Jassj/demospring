@@ -1,9 +1,8 @@
 package demo.spring.test;
 
 /**
- * @author yuanjie
- * @description template class of bean
- * @date 2019/11/16 22:09
+ * description: template class of bean
+ * @author yuanjie 2019/11/16 22:09
  */
 public class TemplateBean {
     private String message1;
