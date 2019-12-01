@@ -14,12 +14,39 @@
         ④.life cycle: 生命周期
            a.init-method: bean初始化时被调用(singleton单例：容器创建时初始化,prototype默认getBean时初始化)
            b.destroy-method: bean销毁时被调用
+        ⑤.abstract: 定义为抽象bean,不能实例化,一般用于模板
     -->
-    <bean id="helloWorld" class="demo.spring.test.HelloWorld" init-method="init" destroy-method="destroy">
+    <bean id="helloWorld" class="demo.spring.test.HelloWorld" init-method="init" destroy-method="destroy"
+        parent="templateBean">
         <property name="message" value="Hello World And You"></property>
     </bean>
 
     <bean id="helloWorld1" class="demo.spring.test.HelloWorld" scope="prototype" init-method="init" destroy-method="destroy">
         <property name="message" value="Second Hello"></property>
     </bean>
+
+    <bean id="templateBean" class="demo.spring.test.TemplateBean" abstract="true">
+        <property name="message1" value="Template Message1"/>
+        <property name="message2" value="Template Message2"/>
+        <property name="message3" value="Template Message3"/>
+    </bean>
+
+    <!--
+        依赖注入：优先使用构造函数初始化bean,后续进行设值函数的依赖注入
+        ①.基于构造函数的依赖注入：constructor-arg标签ref属性注入依赖bean
+        ②.基于设值函数setXxx的依赖注入：property标签中ref属性注入依赖bean
+        注入集合
+    -->
+    <bean id="dependenceTestBean" class="demo.spring.test.DependenceTestBean">
+        <constructor-arg ref="helloWorld"></constructor-arg>
+        <property name="helloWorld" ref="helloWorld"></property>
+        <property name="studentList">
+            <list>
+                <value>Lisa</value>
+                <value>Leo</value>
+                <value>Lucy</value>
+            </list>
+        </property>
+    </bean>
+
 </beans>

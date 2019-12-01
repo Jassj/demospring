@@ -18,13 +18,14 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
  */
 public class MainApp {
 
+    private final static ApplicationContext applicationContext = new FileSystemXmlApplicationContext("F:\\IdeaWorkspace\\springdemo\\src\\main\\webapp\\WEB-INF\\config\\Beans.xml");
+
     /**
      * prototype: 作用域
      * a.singleton(默认): 单例模式,每次返回的bean实例相同,相同与全局对象(容器创建时bean已存在)
      * b.prototype: 每次返回一个新的bean实例,相当于每次new一个对象(获取bean时才会创建这个实例)
      */
     public static void prototypeTest() {
-        ApplicationContext applicationContext = new FileSystemXmlApplicationContext("D:\\IdeaWorkspace\\demospring\\src\\main\\webapp\\WEB-INF\\config\\Beans.xml");
         HelloWorld helloWorld = (HelloWorld) applicationContext.getBean("helloWorld");
         helloWorld.printMessage();
         helloWorld.setMessage("singleton");
@@ -44,7 +45,6 @@ public class MainApp {
      * b.destroy: 每次返回一个新的bean实例,相当于每次new一个对象(获取bean时才会创建这个实例)
      */
     public static void lifeCycle() {
-        ApplicationContext applicationContext = new FileSystemXmlApplicationContext("D:\\IdeaWorkspace\\demospring\\src\\main\\webapp\\WEB-INF\\config\\Beans.xml");
         HelloWorld helloWorld = (HelloWorld) applicationContext.getBean("helloWorld");
         helloWorld.destroy();
 
@@ -52,9 +52,23 @@ public class MainApp {
         helloWorld1.destroy();
     }
 
+    public static void abstractBean() {
+        HelloWorld helloWorld = (HelloWorld) applicationContext.getBean("helloWorld");
+        helloWorld.getMessage();
+        helloWorld.getMessage1();
+        helloWorld.getMessage2();
+        helloWorld.getMessage3();
+    }
+
+    public static void dependenceInjectionTest() {
+        DependenceTestBean dependenceTestBean = (DependenceTestBean) applicationContext.getBean("dependenceTestBean");
+        dependenceTestBean.getStudentList();
+    }
 
     public static void main(String[] args) {
 //        prototypeTest();
-        lifeCycle();
+//        lifeCycle();
+//        abstractBean();
+        dependenceInjectionTest();
     }
 }
