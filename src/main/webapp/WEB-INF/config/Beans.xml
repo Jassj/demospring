@@ -19,6 +19,7 @@
         @Configuration
     -->
     <context:component-scan base-package="demo.spring.aop"/>
+    <context:component-scan base-package="demo.spring.dao.impl"/>
 
     <!--
         Bean的配置元数据
@@ -107,4 +108,16 @@
 
     <bean id="loggingAop" class="demo.spring.aop.LoggingAop"/>
 
+    <!--JDBCDatesource 数据源-->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value=""/>
+        <property name="username" value=""/>
+        <property name="password" value=""/>
+    </bean>
+
+    <!--JDBCTemplate 模板类-->
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" value="dataSource"/>
+    </bean>
 </beans>

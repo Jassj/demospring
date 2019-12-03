@@ -16,11 +16,12 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
  * @author yuanjie 2019/11/15 18:03
  */
 public class MainApp {
-    private final static ApplicationContext applicationContext = new FileSystemXmlApplicationContext("F:\\IdeaWorkspace\\springdemo\\src\\main\\webapp\\WEB-INF\\config\\Beans.xml");
+//    private final static ApplicationContext applicationContext = new FileSystemXmlApplicationContext("F:\\IdeaWorkspace\\springdemo\\src\\main\\webapp\\WEB-INF\\config\\Beans.xml");
+    private final static ApplicationContext applicationContext = new FileSystemXmlApplicationContext("D:\\IdeaWorkspace\\demospring\\src\\main\\webapp\\WEB-INF\\config\\Beans.xml");
 
     /**
      * prototype: 作用域
-     * a.singleton(默认): 单例模式,每次返回的bean实例相同,相同与全局对象(容器创建时,bean就被创建并加入容器中)
+     * a.singleton(默认): 单例模式,每次返回的bean实例相同,相同与全局对象(容器创建时,bean就被创建并加入容器中) Todo 多线程访问或单线程多对象访问是否存在问题
      * b.prototype: 每次返回一个新的bean实例,相当于每次new一个对象(从容器中获取bean时才会创建这个bean的实例)
      */
     public static void prototypeTest() {
@@ -90,6 +91,7 @@ public class MainApp {
 //        autowireTest();
 //        annotationTest();
 //        aopTest();
+
     }
 
 }
