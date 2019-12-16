@@ -8,7 +8,6 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
 /**
- *
  * description: 使用注解完成依赖注入
  * ①.@Require: 用于setter方法,注解的方法一定要进行依赖注入,否则抛出异常(编译时校验)
  * ②.@Autowired: 默认情况下依赖是必须的,只能针对对象进行注入,无法对基础类型使用

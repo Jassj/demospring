@@ -12,11 +12,11 @@
 
     <!--
         扫描包路径下带有注解的类并自动注册为Bean,包含以下注解：
-        @Component    组件,没有明确的定位
-        @Repository   数据访问层(dao)
-        @Service      业务实现层(service)
-        @Controller   控制器(展示层)
-        @Configuration
+        @Component     组件,没有明确的定位
+        @Repository    数据访问层(dao)
+        @Service       业务实现层(service)
+        @Controller    控制器
+        @Configuration Bean配置类,与bean.xml文件用途相同
     -->
     <context:component-scan base-package="demo.spring.aop"/>
     <context:component-scan base-package="demo.spring.dao.impl"/>
@@ -76,7 +76,9 @@
             b.byType 通过类中属性类关联bean类型进行自动装配,当声明两个相同类型bean时无法自动装配【匹配到多个可注入bean,无法自动注入的异常】
             c.constructor 构造函数的自动装配
     -->
-    <bean id="autowireTest" class="demo.spring.test.AutowireTest" autowire="byName"/>
+    <bean id="autowireTest" class="demo.spring.test.AutowireTest">
+        <property name="helloWorld1" ref="helloWorld1"/>
+    </bean>
 
     <!--
         激活Spring相关注解@Require、@Autowired、@Qualifier、JSR 250的@Resource等
@@ -108,7 +110,8 @@
 
     <bean id="loggingAop" class="demo.spring.aop.LoggingAop"/>
 
-    <!--JDBCDatesource 数据源-->
+    <!--Spring JDBC框架与实务管理-->
+    <!--JDBCDataSource 数据源-->
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <property name="url" value=""/>

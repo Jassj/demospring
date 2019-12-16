@@ -65,7 +65,6 @@ public class MainApp {
     }
     public static void autowireTest() {
         AutowireTest autowireTest = (AutowireTest) applicationContext.getBean("autowireTest");
-        autowireTest.getHelloWorld();
     }
 
     public static void annotationTest() {

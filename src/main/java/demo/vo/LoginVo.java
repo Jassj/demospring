@@ -1,4 +1,4 @@
-package demo.api.vo;
+package demo.vo;
 
 import javax.validation.constraints.NotNull;
 

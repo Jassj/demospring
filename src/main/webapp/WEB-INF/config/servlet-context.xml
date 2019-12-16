@@ -14,6 +14,7 @@
     <!--启用spring注解：指定包路径-->
     <context:component-scan base-package="demo.api.controller"/>
     <context:component-scan base-package="demo.api.service"/>
+    <context:component-scan base-package="demo.spring.controller"/>
 
     <mvc:annotation-driven><!--启用MVC配置项,单独使用则注册一系列SpringMVC的基础beans,并适应类路径上可用的依赖项-->
         <mvc:message-converters><!--MVC的消息转换bean,根据spring-mvc.xsd文件进行配置,xsd:element:name属性值对应标签名,xsd:attrubute对应标签的属性值-->
@@ -29,9 +30,22 @@
         </mvc:message-converters>
     </mvc:annotation-driven>
 
+    <!--
+    * BTW, it's good practice to put JSP files that just serve as views under
+    * WEB-INF, to hide them from direct access (e.g. via a manually entered URL).
+    * Only controllers will be able to access them then.
+      jsp文件放在服务的WEB-INF文件夹下,防止直接访问修改文件,仅能通过控制器分发请求跳转页面
+    -->
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/view/"/>
-        <property name="suffix" value=".html"/>
+        <property name="suffix" value=".jsp"/>
     </bean>
 
+    <!--静态资源-->
+    <mvc:resources mapping="/pages/**" location="/WEB-INF/pages/">
+    </mvc:resources>
+
+    <!--异常处理,使用切面-->
+
+    <!--log4j的使用-->
 </beans>
