@@ -20,16 +20,20 @@
     -->
     <context:component-scan base-package="demo.spring.aop"/>
     <context:component-scan base-package="demo.spring.dao.impl"/>
+    <context:component-scan base-package="demo.spring.config"/>
 
     <!--
         Bean的配置元数据
         ①.id/name: bean的唯一标识(The unique identifier for a bean. A bean id may not be used more than once
 	       within the same <beans> element.)
         ②.class: 实现bean的类路径
-        ③.prototype: 作用域
+        ③.scope: 作用域
            a.singleton(默认): 单例模式,每次返回的bean实例相同,相当于全局对象(创建容器时同时创建bean对象)
            b.prototype: 每次返回一个新的bean实例,相当于每次new一个对象(getBean时才会创建这个bean的实例)
-           ...可扩展 Todo request、session、global-session
+           以下适用于WebApplicationContext环境
+           c.request: 每次Http请求创建新的bean
+           d.session: 同一个session内共享bean,不同session使用不同bean
+           e.global-session: 所有会话共享bean
         ④.life cycle: 生命周期
            a.init-method: bean初始化时被调用(singleton单例：容器创建时初始化bean,prototype默认getBean时初始化bean)
            b.destroy-method: bean销毁时被调用
@@ -52,12 +56,12 @@
     </bean>
 
     <!--
-        依赖注入：优先使用构造函数初始化bean,后续进行设值函数的依赖注入
+        依赖注入：构造函数依赖注入 > 设值函数的依赖注入
         ①.基于构造函数的依赖注入：constructor-arg标签ref属性注入依赖bean
-        ②.基于设值函数setXxx的依赖注入：property标签中ref属性注入依赖bean
+        ②.基于设值函数的依赖注入：property标签中ref属性注入依赖bean
         ③.注入集合：可使用<list>、<set>、<map>、<props>标签进行注入
     -->
-    <bean id="dependenceTestBean" class="demo.spring.test.DependenceTestBean">
+    <bean id="dependenceTest" class="demo.spring.test.DependenceTest">
         <constructor-arg ref="helloWorld"/>
         <property name="helloWorld" ref="helloWorld"/>
         <property name="studentList">
@@ -81,8 +85,8 @@
     </bean>
 
     <!--
-        激活Spring相关注解@Require、@Autowired、@Qualifier、JSR 250的@Resource等
-        @Todo Spring内置事件和自定义事件
+        ①.激活Spring相关注解@Require、@Autowired、@Qualifier、JSR 250的@Resource等
+        ②.Spring事件：Spring的事件是单线程的，当一个事件被发布后，除非所有的接受者得到通知，该进程被阻塞并且流程不会记录往下进行，因此设计事件时需注意
     -->
     <context:annotation-config/>
     <bean id="student" class="demo.spring.test.Student">
@@ -110,17 +114,15 @@
 
     <bean id="loggingAop" class="demo.spring.aop.LoggingAop"/>
 
-    <!--Spring JDBC框架与实务管理-->
-    <!--JDBCDataSource 数据源-->
-    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <!--Spring JDBC框架与事务管理-->
+<!--    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <property name="url" value=""/>
         <property name="username" value=""/>
         <property name="password" value=""/>
     </bean>
 
-    <!--JDBCTemplate 模板类-->
     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
         <property name="dataSource" value="dataSource"/>
-    </bean>
+    </bean>-->
 </beans>

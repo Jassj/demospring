@@ -1,6 +1,9 @@
 package demo.spring.test;
 
+import demo.spring.config.BeanConfiguration;
+import demo.spring.config.Employee;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 /**
@@ -16,12 +19,15 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
  * @author yuanjie 2019/11/15 18:03
  */
 public class MainApp {
-//    private final static ApplicationContext applicationContext = new FileSystemXmlApplicationContext("F:\\IdeaWorkspace\\springdemo\\src\\main\\webapp\\WEB-INF\\config\\Beans.xml");
-    private final static ApplicationContext applicationContext = new FileSystemXmlApplicationContext("D:\\IdeaWorkspace\\demospring\\src\\main\\webapp\\WEB-INF\\config\\Beans.xml");
+    private final static ApplicationContext applicationContext = new FileSystemXmlApplicationContext("F:\\IdeaWorkspace\\springdemo\\src\\main\\webapp\\WEB-INF\\config\\Beans.xml");
+//    private final static ApplicationContext applicationContext = new FileSystemXmlApplicationContext("D:\\IdeaWorkspace\\demospring\\src\\main\\webapp\\WEB-INF\\config\\Beans.xml");
 
     /**
      * prototype: 作用域
-     * a.singleton(默认): 单例模式,每次返回的bean实例相同,相同与全局对象(容器创建时,bean就被创建并加入容器中) Todo 多线程访问或单线程多对象访问是否存在问题
+     * a.singleton(默认): 单例模式,每次返回的bean实例相同,相同与全局对象(容器创建时,bean就被创建并加入容器中)
+     * 多线程访问单例对象的安全性：Spring框架并没有对单例bean进行任何多线程的封装处理
+     * 无状态bean：每个用户访问时bean的状态都一致，类似Controller、Service、Dao，仅关注Bean的方法，而不存在对实例变量修改，导致bean状态的变化。
+     * 有状态bean：可以理解为有实例变量的bean，相关操作有导致数据的变化，不同用户访问时会存在资源竞争问题，因此是不安全的。
      * b.prototype: 每次返回一个新的bean实例,相当于每次new一个对象(从容器中获取bean时才会创建这个bean的实例)
      */
     public static void prototypeTest() {
@@ -60,8 +66,8 @@ public class MainApp {
     }
 
     public static void dependenceInjectionTest() {
-        DependenceTestBean dependenceTestBean = (DependenceTestBean) applicationContext.getBean("dependenceTestBean");
-        dependenceTestBean.getStudentList();
+        DependenceTest dependenceTest = (DependenceTest) applicationContext.getBean("dependenceTest");
+        dependenceTest.getStudentList();
     }
     public static void autowireTest() {
         AutowireTest autowireTest = (AutowireTest) applicationContext.getBean("autowireTest");
@@ -82,15 +88,20 @@ public class MainApp {
         }
     }
 
+    public static void configurationAnnotation() {
+        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(BeanConfiguration.class);
+        applicationContext.getBean(Employee.class);
+    }
+
     public static void main(String[] args) {
 //        prototypeTest();
 //        lifeCycle();
-        abstractBean();
+//        abstractBean();
 //        dependenceInjectionTest();
 //        autowireTest();
 //        annotationTest();
 //        aopTest();
-
+//        configurationAnnotation();
     }
 
 }

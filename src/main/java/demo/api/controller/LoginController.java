@@ -16,12 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api") //请求URL映射注解
 public class LoginController {
 
-    /**
-     * Field injection is not recommended --- @Autowired自动装配注解声明在字段上,省去声明setter方法
-     * Always use constructor based dependency injection in your beans. Always use assertions for mandatory dependencies
-     * 不推荐使用字段注入,推荐使用基于构造函数的依赖注入--仅有一个构造函数可以使用@Autowired,Todo 推荐对强制性依赖使用断言???
-     */
-    private final LoginService loginService; // Todo 声明为final??
+    private LoginService loginService;
     private HelloWorld helloWorld;
 
     @Autowired

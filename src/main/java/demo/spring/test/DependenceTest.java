@@ -6,12 +6,12 @@ import java.util.List;
  * description: 依赖注入测试bean
  * @author yuanjie 2019/11/17 21:10
  */
-public class DependenceTestBean {
+public class DependenceTest {
     private HelloWorld helloWorld;
     private List studentList;
 
-    public DependenceTestBean(HelloWorld helloWorld) {
-        System.out.println("DependenceTestBean Init Successfully!");
+    public DependenceTest(HelloWorld helloWorld) {
+        System.out.println("DependenceTest Init Successfully!");
         this.helloWorld = helloWorld;
     }
 
@@ -20,7 +20,7 @@ public class DependenceTestBean {
     }
 
     public void setHelloWorld(HelloWorld helloWorld) {
-        System.out.println("Set HelloWorld In DependenceTestBean Successfully!");
+        System.out.println("Set HelloWorld In DependenceTest Successfully!");
         this.helloWorld = helloWorld;
     }
 

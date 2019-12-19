@@ -45,7 +45,4 @@
     <mvc:resources mapping="/pages/**" location="/WEB-INF/pages/">
     </mvc:resources>
 
-    <!--异常处理,使用切面-->
-
-    <!--log4j的使用-->
 </beans>
