@@ -1,9 +1,16 @@
 package demo.spring.config;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Lazy;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
 /**
  * description： employee实体类
  * @author yuanjie 2019/12/18 19:04
  */
+@Lazy //延迟初始化，在第一次获取bean的时候进行初始化
 public class Employee {
     private int employeeId;
     private String departId;
@@ -29,7 +36,18 @@ public class Employee {
         return employeeName;
     }
 
+    @Value(value = "0001")
     public void setEmployeeName(String employeeName) {
         this.employeeName = employeeName;
+    }
+
+    @PostConstruct //初始化回调函数，等价于init-method = init
+    public void init() {
+        System.out.println("Employee init");
+    }
+
+    @PreDestroy //销毁回调函数，等价于destroy-method = destroy
+    public void destroy() {
+        System.out.println("Employee destroy");
     }
 }

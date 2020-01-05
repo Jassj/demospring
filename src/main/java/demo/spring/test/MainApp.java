@@ -1,5 +1,6 @@
 package demo.spring.test;
 
+import demo.spring.bean.Student;
 import demo.spring.config.BeanConfiguration;
 import demo.spring.config.Employee;
 import org.springframework.context.ApplicationContext;
@@ -59,7 +60,6 @@ public class MainApp {
 
     public static void abstractBean() {
         HelloWorld helloWorld = (HelloWorld) applicationContext.getBean("helloWorld");
-        helloWorld.getMessage();
         helloWorld.getMessage1();
         helloWorld.getMessage2();
         helloWorld.getMessage3();
@@ -82,15 +82,16 @@ public class MainApp {
             AopTest aopTest = (AopTest) applicationContext.getBean("aopTest");
 //            aopTest.setNumber(1);
             aopTest.setValue("My Aop Test");
-            aopTest.getValue();
         } catch (Exception e) {
 //            e.printStackTrace();
         }
     }
 
-    public static void configurationAnnotation() {
+    private static void configurationAnnotation() {
         ApplicationContext applicationContext = new AnnotationConfigApplicationContext(BeanConfiguration.class);
-        applicationContext.getBean(Employee.class);
+        Employee employee = applicationContext.getBean(Employee.class);
+        System.out.println(employee.getEmployeeName());
+        employee.destroy();
     }
 
     public static void main(String[] args) {
@@ -101,7 +102,7 @@ public class MainApp {
 //        autowireTest();
 //        annotationTest();
 //        aopTest();
-//        configurationAnnotation();
+        configurationAnnotation();
     }
 
 }

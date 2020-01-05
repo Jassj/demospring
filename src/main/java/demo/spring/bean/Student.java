@@ -1,5 +1,6 @@
-package demo.spring.test;
+package demo.spring.bean;
 
+import demo.spring.test.HelloWorld;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Required;
@@ -38,7 +39,6 @@ public class Student {
         return name;
     }
 
-    @Required
     public void setName(String name) {
         this.name = name;
     }
@@ -49,10 +49,11 @@ public class Student {
 
 /*
     @Required 用于setter方法,注解的方法一定要进行依赖注入,否则提示错误(编译时校验)
-    public void setAge(int age) {
-        this.age = age;
-    }
 */
+    public void setAge(int age) {
+       this.age = age;
+    }
+
 
     public HelloWorld getHelloWorld() {
         return helloWorld;

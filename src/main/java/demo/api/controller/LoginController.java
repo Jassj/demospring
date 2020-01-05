@@ -24,7 +24,7 @@ public class LoginController {
         this.loginService = loginService;
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @PostMapping(value = "/login")
     @ResponseBody
     public HttpResult login(@RequestBody @Valid LoginVo lv, BindingResult result) {
         if(result.hasErrors()) {

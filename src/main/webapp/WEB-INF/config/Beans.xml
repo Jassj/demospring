@@ -20,8 +20,6 @@
     -->
     <context:component-scan base-package="demo.spring.aop"/>
     <context:component-scan base-package="demo.spring.dao.impl"/>
-    <context:component-scan base-package="demo.spring.config"/>
-
     <!--
         Bean的配置元数据
         ①.id/name: bean的唯一标识(The unique identifier for a bean. A bean id may not be used more than once
@@ -89,7 +87,7 @@
         ②.Spring事件：Spring的事件是单线程的，当一个事件被发布后，除非所有的接受者得到通知，该进程被阻塞并且流程不会记录往下进行，因此设计事件时需注意
     -->
     <context:annotation-config/>
-    <bean id="student" class="demo.spring.test.Student">
+    <bean id="student" class="demo.spring.bean.Student">
         <property name="name" value="Leo"/>
     </bean>
 

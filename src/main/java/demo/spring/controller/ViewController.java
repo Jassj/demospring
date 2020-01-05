@@ -1,8 +1,10 @@
 package demo.spring.controller;
 
+import demo.spring.bean.Student;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class ViewController {
@@ -15,5 +17,17 @@ public class ViewController {
     @RequestMapping(value = "/main", method = RequestMethod.GET)
     public String getMainPage() {
         return "redirect:/pages/main.html";
+    }
+
+    @GetMapping(value = "/student")
+    public ModelAndView student() {
+        return new ModelAndView("student", "command", new Student());
+    }
+
+    @PostMapping(value = "/addStudent")
+    public String addStudent(@ModelAttribute("SpringWeb") Student student, ModelMap model) {
+        model.addAttribute("name", student.getName());
+        model.addAttribute("age", student.getAge());
+        return "result";
     }
 }

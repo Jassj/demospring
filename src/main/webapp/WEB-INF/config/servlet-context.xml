@@ -9,9 +9,18 @@
        http://www.springframework.org/schema/mvc
        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <!--开启注解：全局模式-->
+    <!--
+        激活Spring相关注解@Require、@Autowired、@Qualifier、JSR 250的@Resource等
+    -->
     <context:annotation-config/>
-    <!--启用spring注解：指定包路径-->
+    <!--
+        扫描包路径下带有注解的类并自动注册为Bean,包含以下注解：
+        @Component     组件,没有明确的定位
+        @Repository    数据访问层(dao)
+        @Service       业务实现层(service)
+        @Controller    控制器
+        @Configuration Bean配置类,与bean.xml文件用途相同
+    -->
     <context:component-scan base-package="demo.api.controller"/>
     <context:component-scan base-package="demo.api.service"/>
     <context:component-scan base-package="demo.spring.controller"/>
@@ -45,4 +54,7 @@
     <mvc:resources mapping="/pages/**" location="/WEB-INF/pages/">
     </mvc:resources>
 
+    <!--异常处理-->
+
+    <!--Log4J记录日志-->
 </beans>
