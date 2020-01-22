@@ -33,10 +33,11 @@ public class Employee {
     }
 
     public String getEmployeeName() {
+        System.out.println(employeeName);
         return employeeName;
     }
 
-    @Value(value = "0001")
+    @Value(value = "Mike")
     public void setEmployeeName(String employeeName) {
         this.employeeName = employeeName;
     }

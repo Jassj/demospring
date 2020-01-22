@@ -7,6 +7,7 @@ public class HelloWorld {
     private String message3;
 
     public String getMessage() {
+        System.out.println(this.message);
         return message;
     }
 
@@ -39,10 +40,6 @@ public class HelloWorld {
 
     public void setMessage3(String message3) {
         this.message3 = message3;
-    }
-
-    public void printMessage() {
-        System.out.println(this.message);
     }
 
     public void init() {

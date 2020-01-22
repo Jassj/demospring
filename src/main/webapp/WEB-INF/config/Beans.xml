@@ -78,18 +78,14 @@
             b.byType 通过类中属性类关联bean类型进行自动装配,当声明两个相同类型bean时无法自动装配【匹配到多个可注入bean,无法自动注入的异常】
             c.constructor 构造函数的自动装配
     -->
-    <bean id="autowireTest" class="demo.spring.test.AutowireTest">
-        <property name="helloWorld1" ref="helloWorld1"/>
-    </bean>
+    <bean id="autowireTest" class="demo.spring.test.AutowireTest" autowire="byName"/>
 
     <!--
         ①.激活Spring相关注解@Require、@Autowired、@Qualifier、JSR 250的@Resource等
         ②.Spring事件：Spring的事件是单线程的，当一个事件被发布后，除非所有的接受者得到通知，该进程被阻塞并且流程不会记录往下进行，因此设计事件时需注意
     -->
     <context:annotation-config/>
-    <bean id="student" class="demo.spring.bean.Student">
-        <property name="name" value="Leo"/>
-    </bean>
+    <bean id="student" class="demo.spring.bean.Student"/>
 
     <!--
         AOP：面向切面的编程
@@ -97,23 +93,25 @@
         ②.声明切入点：aop:pointcut,程序中使用AOP的点(方法)
         ③.声明建议：aop:before、aop:after、aop:after-returning、aop:after-throwing、aop:around
     -->
-    <aop:aspectj-autoproxy/>  <!--开启对@AspectJ注解的支持-->
-    <bean id="aopTest" class="demo.spring.test.AopTest">
-    </bean>
+    <aop:aspectj-autoproxy/>  <!--开启对切面@AspectJ注解的支持-->
+    <bean id="aopTest" class="demo.spring.test.AopTest"/>
+<!--
     <aop:config>
         <aop:aspect id="log" ref="loggingAop">
-            <aop:pointcut id="businessService" expression="execution(* demo.spring.test.AopTest.setNumber(..))" />
+            <aop:pointcut id="businessService" expression="execution(* demo.spring.test.AopTest.*(..))" />
             <aop:before pointcut-ref="businessService" method="beforeAdvice"/>
             <aop:after pointcut-ref="businessService" method="afterAdvice"/>
-            <!--<aop:after-returning pointcut-ref="businessService" returning="retVal" method="afterReturningAdvice"/>-->
+            <aop:after-returning pointcut-ref="businessService" returning="retVal" method="afterReturningAdvice"/>
             <aop:after-throwing pointcut-ref="businessService" throwing="ex" method="AfterThrowingAdvice"/>
         </aop:aspect>
     </aop:config>
 
     <bean id="loggingAop" class="demo.spring.aop.LoggingAop"/>
+-->
 
     <!--Spring JDBC框架与事务管理-->
-<!--    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+<!--
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <property name="url" value=""/>
         <property name="username" value=""/>
@@ -122,5 +120,6 @@
 
     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
         <property name="dataSource" value="dataSource"/>
-    </bean>-->
+    </bean>
+-->
 </beans>

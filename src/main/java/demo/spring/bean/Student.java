@@ -3,7 +3,6 @@ package demo.spring.bean;
 import demo.spring.test.HelloWorld;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Required;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -27,10 +26,7 @@ public class Student {
     private int age;
     private HelloWorld helloWorld;
 
-    /**
-     * Field injection is not recommended, Always use constructor based dependency injection in your beans
-     * 不推荐使用字段注入,推荐使用基于构造函数的依赖注入 @Todo 待扩充
-     */
+    //Field injection is not recommended, Always use constructor based dependency injection in your beans 不推荐使用字段注入,推荐使用基于构造函数的依赖注入
     @Autowired
     @Qualifier(value = "helloWorld1")
     private HelloWorld helloWorld1;
@@ -47,13 +43,10 @@ public class Student {
         return age;
     }
 
-/*
-    @Required 用于setter方法,注解的方法一定要进行依赖注入,否则提示错误(编译时校验)
-*/
+//    @Required 用于setter方法,注解的方法一定要进行依赖注入,否则提示错误(编译时校验)
     public void setAge(int age) {
        this.age = age;
     }
-
 
     public HelloWorld getHelloWorld() {
         return helloWorld;

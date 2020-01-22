@@ -26,9 +26,4 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 
-    <!-- 指定Spring Bean的配置文件所在目录。默认配置在WEB-INF目录下 -->
-    <context-param>
-        <param-name>contextConfigLocation</param-name>
-        <param-value>/WEB-INF/applicationContext.xml</param-value>
-    </context-param>
 </web-app>

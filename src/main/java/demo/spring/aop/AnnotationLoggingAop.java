@@ -16,6 +16,7 @@ public class AnnotationLoggingAop {
     public void tempPointCut() {
 
     }
+
     /**
      * This is the method which I would like to execute
      * before a selected method execution.
@@ -24,6 +25,7 @@ public class AnnotationLoggingAop {
     public void beforeAdvice(){
         System.out.println("AnnotationLoggingAop--> Method will be called.");
     }
+
     /**
      * This is the method which I would like to execute
      * after a selected method execution.
@@ -32,6 +34,7 @@ public class AnnotationLoggingAop {
     public void afterAdvice(){
         System.out.println("AnnotationLoggingAop--> Method has been called.");
     }
+
     /**
      * This is the method which I would like to execute
      * when any method returns.
@@ -40,10 +43,12 @@ public class AnnotationLoggingAop {
     public void afterReturningAdvice(Object retVal){
         System.out.println("AnnotationLoggingAop--> Returning:" + retVal.toString() );
     }
+
     /**
      * This is the method which I would like to execute
      * if there is an exception raised.
      */
+    @AfterThrowing(pointcut = "tempPointCut()", throwing = "ex")
     public void AfterThrowingAdvice(IllegalArgumentException ex){
         System.out.println("AnnotationLoggingAop--> There has been an exception: " + ex.toString());
     }

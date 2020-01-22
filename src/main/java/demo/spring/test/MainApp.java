@@ -20,8 +20,8 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
  * @author yuanjie 2019/11/15 18:03
  */
 public class MainApp {
-    private final static ApplicationContext applicationContext = new FileSystemXmlApplicationContext("F:\\IdeaWorkspace\\springdemo\\src\\main\\webapp\\WEB-INF\\config\\Beans.xml");
-//    private final static ApplicationContext applicationContext = new FileSystemXmlApplicationContext("D:\\IdeaWorkspace\\demospring\\src\\main\\webapp\\WEB-INF\\config\\Beans.xml");
+//    private final static ApplicationContext applicationContext = new FileSystemXmlApplicationContext("F:\\IdeaWorkspace\\springdemo\\src\\main\\webapp\\WEB-INF\\config\\Beans.xml");
+    private final static ApplicationContext applicationContext = new FileSystemXmlApplicationContext("D:\\IdeaWorkspace\\demospring\\src\\main\\webapp\\WEB-INF\\config\\Beans.xml");
 
     /**
      * prototype: 作用域
@@ -33,16 +33,16 @@ public class MainApp {
      */
     public static void prototypeTest() {
         HelloWorld helloWorld = (HelloWorld) applicationContext.getBean("helloWorld");
-        helloWorld.printMessage();
+        helloWorld.getMessage();
         helloWorld.setMessage("singleton");
         HelloWorld helloWorld_singleton = (HelloWorld) applicationContext.getBean("helloWorld");
-        helloWorld_singleton.printMessage();
+        helloWorld_singleton.getMessage();
 
         HelloWorld helloWorld1 = (HelloWorld) applicationContext.getBean("helloWorld1");
-        helloWorld1.printMessage();
+        helloWorld1.getMessage();
         helloWorld1.setMessage("prototype");
         HelloWorld helloWorld2 = (HelloWorld) applicationContext.getBean("helloWorld1");
-        helloWorld2.printMessage();
+        helloWorld2.getMessage();
     }
 
     /**
@@ -58,6 +58,7 @@ public class MainApp {
         helloWorld1.destroy();
     }
 
+    // 虚拟bean，用作模板
     public static void abstractBean() {
         HelloWorld helloWorld = (HelloWorld) applicationContext.getBean("helloWorld");
         helloWorld.getMessage1();
@@ -65,33 +66,39 @@ public class MainApp {
         helloWorld.getMessage3();
     }
 
+    // 依赖注入
     public static void dependenceInjectionTest() {
         DependenceTest dependenceTest = (DependenceTest) applicationContext.getBean("dependenceTest");
         dependenceTest.getStudentList();
     }
+
+    // 自动装配
     public static void autowireTest() {
         AutowireTest autowireTest = (AutowireTest) applicationContext.getBean("autowireTest");
     }
 
+    // spring注解
     public static void annotationTest() {
         Student student = (Student) applicationContext.getBean("student");
     }
 
+    // 基于Java的bean容器配置
+    public static void configurationAnnotation() {
+        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(BeanConfiguration.class);
+        Employee employee = applicationContext.getBean(Employee.class);
+        employee.getEmployeeName();
+        employee.destroy();
+    }
+
+    // 切面
     public static void aopTest() {
         try {
             AopTest aopTest = (AopTest) applicationContext.getBean("aopTest");
-//            aopTest.setNumber(1);
-            aopTest.setValue("My Aop Test");
+            System.out.println("Number:"+aopTest.getNumber());
+            aopTest.setNumber(12345);
         } catch (Exception e) {
 //            e.printStackTrace();
         }
-    }
-
-    private static void configurationAnnotation() {
-        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(BeanConfiguration.class);
-        Employee employee = applicationContext.getBean(Employee.class);
-        System.out.println(employee.getEmployeeName());
-        employee.destroy();
     }
 
     public static void main(String[] args) {
@@ -101,8 +108,8 @@ public class MainApp {
 //        dependenceInjectionTest();
 //        autowireTest();
 //        annotationTest();
+//        configurationAnnotation();
 //        aopTest();
-        configurationAnnotation();
     }
 
 }
