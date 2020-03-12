@@ -1,10 +1,10 @@
 package demo.spring.aop;
 
 import org.aspectj.lang.annotation.*;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 @Aspect
-@Service
+@Component
 public class AnnotationLoggingAop {
 
     /**

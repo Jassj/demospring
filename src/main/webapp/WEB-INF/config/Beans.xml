@@ -93,7 +93,7 @@
         ②.声明切入点：aop:pointcut,程序中使用AOP的点(方法)
         ③.声明建议：aop:before、aop:after、aop:after-returning、aop:after-throwing、aop:around
     -->
-    <aop:aspectj-autoproxy/>  <!--开启对切面@AspectJ注解的支持-->
+    <aop:aspectj-autoproxy/>  <!--开启对aop切面标签(aop:aspect等)的支持-->
     <bean id="aopTest" class="demo.spring.test.AopTest"/>
 <!--
     <aop:config>
