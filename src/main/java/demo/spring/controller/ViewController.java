@@ -9,12 +9,12 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class ViewController {
 
-    @RequestMapping(value = "/menu", method = RequestMethod.GET)
+    @GetMapping(value = "/menu") // 等价于@RequestMapping(value = "/menu", method = RequestMethod.GET)
     public String getMenuPage() {
         return "menu";
     }
 
-    @RequestMapping(value = "/main", method = RequestMethod.GET)
+    @GetMapping(value = "/main")
     public String getMainPage() {
         return "redirect:/pages/main.html";
     }

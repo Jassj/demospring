@@ -54,7 +54,7 @@
     </bean>
 
     <!--
-        依赖注入：构造函数依赖注入 > 设值函数的依赖注入
+        依赖注入：优先级(构造函数依赖注入 > 设值函数的依赖注入)
         ①.基于构造函数的依赖注入：constructor-arg标签ref属性注入依赖bean
         ②.基于设值函数的依赖注入：property标签中ref属性注入依赖bean
         ③.注入集合：可使用<list>、<set>、<map>、<props>标签进行注入
@@ -82,7 +82,7 @@
 
     <!--
         ①.激活Spring相关注解@Require、@Autowired、@Qualifier、JSR 250的@Resource等
-        ②.Spring事件：Spring的事件是单线程的，当一个事件被发布后，除非所有的接受者得到通知，该进程被阻塞并且流程不会记录往下进行，因此设计事件时需注意
+        ②.@Todo Spring事件：Spring的事件是单线程的，当一个事件被发布后，除非所有的接受者得到通知，否则该进程被阻塞并且流程不会记录往下进行，因此设计事件时需注意
     -->
     <context:annotation-config/>
     <bean id="student" class="demo.spring.bean.Student"/>
@@ -106,7 +106,7 @@
         </aop:aspect>
     </aop:config>
 
-    <bean id="loggingAop" class="demo.spring.aop.LoggingAop"/>
+    <bean id="loggingAop" class="demo.spring.aop.ConfigurationLoggingAop"/>
 -->
 
     <!--Spring JDBC框架与事务管理-->

@@ -1,6 +1,6 @@
 package demo.spring.aop;
 
-public class LoggingAop {
+public class ConfigurationLoggingAop {
     /**
      * This is the method which I would like to execute
      * before a selected method execution.
