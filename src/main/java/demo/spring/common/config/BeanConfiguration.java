@@ -1,5 +1,6 @@
-package demo.spring.config;
+package demo.spring.common.config;
 
+import demo.spring.common.bean.Employee;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;

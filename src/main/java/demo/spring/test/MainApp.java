@@ -1,11 +1,14 @@
 package demo.spring.test;
 
-import demo.spring.bean.Student;
-import demo.spring.config.BeanConfiguration;
-import demo.spring.config.Employee;
+import demo.spring.common.bean.Student;
+import demo.spring.common.config.BeanConfiguration;
+import demo.spring.common.bean.Employee;
+import demo.spring.service.StudentService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
+
+import java.util.List;
 
 /**
  *
@@ -20,8 +23,8 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
  * @author yuanjie 2019/11/15 18:03
  */
 public class MainApp {
-//    private final static ApplicationContext applicationContext = new FileSystemXmlApplicationContext("F:\\IdeaWorkspace\\springdemo\\src\\main\\webapp\\WEB-INF\\config\\Beans.xml");
-    private final static ApplicationContext applicationContext = new FileSystemXmlApplicationContext("D:\\IdeaWorkspace\\demospring\\src\\main\\webapp\\WEB-INF\\config\\Beans.xml");
+    private final static ApplicationContext applicationContext = new FileSystemXmlApplicationContext("F:\\IdeaWorkspace\\springdemo\\src\\main\\webapp\\WEB-INF\\config\\Beans.xml");
+//    private final static ApplicationContext applicationContext = new FileSystemXmlApplicationContext("D:\\IdeaWorkspace\\demospring\\src\\main\\webapp\\WEB-INF\\config\\Beans.xml");
 
     /**
      * prototype: 作用域
@@ -61,6 +64,7 @@ public class MainApp {
     // 虚拟bean，用作模板
     public static void abstractBean() {
         HelloWorld helloWorld = (HelloWorld) applicationContext.getBean("helloWorld");
+        helloWorld.getMessage();
         helloWorld.getMessage1();
         helloWorld.getMessage2();
         helloWorld.getMessage3();
@@ -101,6 +105,27 @@ public class MainApp {
         }
     }
 
+    // Spring Jdbc
+    public static void springJdbcTest() {
+        StudentService studentService = (StudentService) applicationContext.getBean("studentService");
+        int count = studentService.queryStudentCount();
+        String name = (String) studentService.queryColumnById("name", 1);
+        int age = (int) studentService.queryColumnById("age", 1);
+        System.out.println("当前学生的数量是：" + count);
+        System.out.println("ID为1学生的姓名是：" + name + ", 年龄是：" + age);
+
+        // 查询并返回一个对象
+        Student student = studentService.queryStudentById(2);
+        System.out.println("当前学生的ID为" + student.getId() + ", 姓名是：" + student.getName() + ", 年龄是：" + student.getAge());
+
+        // 查询并返回多个对象
+        List<Student> studentList = studentService.queryStudentByAge(23);
+        for(Student student1 : studentList) {
+            System.out.println("年龄23的学生ID为" + student1.getId() + ", 姓名是：" + student1.getName());
+        }
+
+    }
+
     public static void main(String[] args) {
 //        prototypeTest();
 //        lifeCycle();
@@ -110,6 +135,7 @@ public class MainApp {
 //        annotationTest();
 //        configurationAnnotation();
 //        aopTest();
+        springJdbcTest();
     }
 
 }

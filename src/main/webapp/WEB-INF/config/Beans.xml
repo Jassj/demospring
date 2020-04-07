@@ -18,25 +18,24 @@
         @Controller    控制器
         @Configuration Bean配置类,与bean.xml文件用途相同
     -->
-    <context:component-scan base-package="demo.spring.aop"/>
-    <context:component-scan base-package="demo.spring.dao.impl"/>
+    <context:component-scan base-package="demo.spring.*"/>
     <!--
         Bean的配置元数据
-        ①.id/name: bean的唯一标识(The unique identifier for a bean. A bean id may not be used more than once
+        1.id/name: bean的唯一标识(The unique identifier for a bean. A bean id may not be used more than once
 	       within the same <beans> element.)
-        ②.class: 实现bean的类路径
-        ③.scope: 作用域
+        2.class: 实现bean的类路径
+        3.scope: 作用域
            a.singleton(默认): 单例模式,每次返回的bean实例相同,相当于全局对象(创建容器时同时创建bean对象)
            b.prototype: 每次返回一个新的bean实例,相当于每次new一个对象(getBean时才会创建这个bean的实例)
            以下适用于WebApplicationContext环境
            c.request: 每次Http请求创建新的bean
            d.session: 同一个session内共享bean,不同session使用不同bean
            e.global-session: 所有会话共享bean
-        ④.life cycle: 生命周期
+        4.life cycle: 生命周期
            a.init-method: bean初始化时被调用(singleton单例：容器创建时初始化bean,prototype默认getBean时初始化bean)
            b.destroy-method: bean销毁时被调用
            c.<beans>标签增加default-init-method,default-destroy-method属性,实现全局默认初始化和销毁
-        ⑤.继承: abstract="true"定义为抽象bean,不能实例化,一般用于模板被继承
+        5.继承: abstract="true"定义为抽象bean,不能实例化, 一般用于模板被继承
     -->
     <bean id="helloWorld" class="demo.spring.test.HelloWorld" init-method="init" destroy-method="destroy"
           parent="templateBean">
@@ -55,9 +54,9 @@
 
     <!--
         依赖注入：优先级(构造函数依赖注入 > 设值函数的依赖注入)
-        ①.基于构造函数的依赖注入：constructor-arg标签ref属性注入依赖bean
-        ②.基于设值函数的依赖注入：property标签中ref属性注入依赖bean
-        ③.注入集合：可使用<list>、<set>、<map>、<props>标签进行注入
+        1.基于构造函数的依赖注入：constructor-arg标签ref属性注入依赖bean
+        2.基于设值函数的依赖注入：property标签中ref属性注入依赖bean
+        3.注入集合：可使用<list>、<set>、<map>、<props>标签进行注入
     -->
     <bean id="dependenceTest" class="demo.spring.test.DependenceTest">
         <constructor-arg ref="helloWorld"/>
@@ -72,31 +71,37 @@
     </bean>
 
     <!--
-        autowired: 自动装配(Spring容器主导进行匹配bean的依赖注入,可靠性存在问题,容易造成混乱,使用精确匹配更合适)
-        ①.<bean>标签的属性autowire实现自动注入
-            a.byName 通过类中属性名和设值方法关联beanID进行自动装配
-            b.byType 通过类中属性类关联bean类型进行自动装配,当声明两个相同类型bean时无法自动装配【匹配到多个可注入bean,无法自动注入的异常】
-            c.constructor 构造函数的自动装配
+        autowired: 自动装配(Spring容器主导进行匹配bean的依赖注入,可靠性存在问题,容易造成混乱,使用精确匹配更合适), 通过<bean>标签的属性autowire实现自动注入
+        1.byName 通过类中属性名和设值方法关联beanID进行自动装配
+        2.byType 通过类中属性类关联bean类型进行自动装配,当声明两个相同类型bean时无法自动装配【匹配到多个可注入bean,无法自动注入的异常】
+        3.constructor 构造函数的自动装配
     -->
     <bean id="autowireTest" class="demo.spring.test.AutowireTest" autowire="byName"/>
 
     <!--
-        ①.激活Spring相关注解@Require、@Autowired、@Qualifier、JSR 250的@Resource等
-        ②.@Todo Spring事件：Spring的事件是单线程的，当一个事件被发布后，除非所有的接受者得到通知，否则该进程被阻塞并且流程不会记录往下进行，因此设计事件时需注意
+        激活Spring相关注解@Require、@Autowired、@Qualifier、JSR 250的@Resource等
+        1.@Require: 用于setter方法,注解的方法一定要进行依赖注入,否则抛出异常(编译时校验)
+        2.@Autowired: 默认情况下依赖是必须的,只能针对对象进行注入,无法对基础类型使用
+            a.用于属性 Field Injection  不推荐
+            b.setter方法 根据byType方式进行自动装配
+            c.构造函数
+        3.@Qualifier: 用于在相同类型bean中注入指定ID,配合@Autowired注解可精确定位bean,消除Spring容器自动注入的混乱情况
+        4.@PostConstruct：初始化回调函数,等价于bean.xml中init-method方法
+        5.@PreDestroy：bean销毁的回调函数,等价于bean.xml中destroy-method方法
+        6.@Resource: @Resource(name= "xxx") 等价于@Autowired的byName形式
+        7.@Configuration: 表名此类可以作为Spring IOC容器的bean定义来源 == bean.xml文件 @Bean: 标识此方法返回一个bean实例{@link demo.spring.common.config.BeanConfiguration}
     -->
     <context:annotation-config/>
-    <bean id="student" class="demo.spring.bean.Student"/>
-
     <!--
         AOP：面向切面的编程
-        ①.声明切面: aop:aspect,一个提供横切需求APIs的模块
-        ②.声明切入点：aop:pointcut,程序中使用AOP的点(方法)
-        ③.声明建议：aop:before、aop:after、aop:after-returning、aop:after-throwing、aop:around
+        1.声明切面: aop:aspect,一个提供横切需求APIs的模块
+        2.声明切入点: aop:pointcut,程序中使用AOP的点(方法)
+        3.声明建议: aop:before、aop:after、aop:after-returning、aop:after-throwing、aop:around
     -->
     <aop:aspectj-autoproxy/>  <!--开启对aop切面标签(aop:aspect等)的支持-->
     <bean id="aopTest" class="demo.spring.test.AopTest"/>
-<!--
-    <aop:config>
+    <!-- 基于xml的切面实现 -->
+    <!--<aop:config>
         <aop:aspect id="log" ref="loggingAop">
             <aop:pointcut id="businessService" expression="execution(* demo.spring.test.AopTest.*(..))" />
             <aop:before pointcut-ref="businessService" method="beforeAdvice"/>
@@ -106,20 +111,22 @@
         </aop:aspect>
     </aop:config>
 
-    <bean id="loggingAop" class="demo.spring.aop.ConfigurationLoggingAop"/>
--->
+    <bean id="loggingAop" class="demo.spring.common.aop.ConfigurationLoggingAop"/>-->
 
-    <!--Spring JDBC框架与事务管理-->
-<!--
+
+    <!-- datasource 数据源-->
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-        <property name="url" value=""/>
-        <property name="username" value=""/>
-        <property name="password" value=""/>
+        <property name="url" value="jdbc:mysql://localhost:3306/TEST?useSSL=true"/>
+        <property name="username" value="root"/>
+        <property name="password" value="072595"/>
     </bean>
 
+    <!-- jdbc 模板类 -->
     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-        <property name="dataSource" value="dataSource"/>
+        <property name="dataSource" ref="dataSource"/>
     </bean>
--->
+
+    <bean id="student" class="demo.spring.common.bean.Student"/>
+
 </beans>

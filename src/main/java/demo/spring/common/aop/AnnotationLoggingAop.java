@@ -1,4 +1,4 @@
-package demo.spring.aop;
+package demo.spring.common.aop;
 
 import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;

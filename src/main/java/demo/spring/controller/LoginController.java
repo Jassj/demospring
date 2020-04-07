@@ -1,7 +1,7 @@
-package demo.api.controller;
+package demo.spring.controller;
 
-import demo.api.service.LoginService;
-import demo.spring.bean.HttpResult;
+import demo.spring.service.LoginService;
+import demo.spring.common.bean.HttpResult;
 import demo.spring.test.HelloWorld;
 import demo.vo.LoginVo;
 

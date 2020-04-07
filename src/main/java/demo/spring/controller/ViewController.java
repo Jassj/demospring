@@ -1,6 +1,6 @@
 package demo.spring.controller;
 
-import demo.spring.bean.Student;
+import demo.spring.common.bean.Student;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;

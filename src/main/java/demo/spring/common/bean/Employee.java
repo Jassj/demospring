@@ -1,4 +1,4 @@
-package demo.spring.config;
+package demo.spring.common.bean;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
@@ -7,7 +7,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
 /**
- * description： employee实体类
+ * description: employee实体类
  * @author yuanjie 2019/12/18 19:04
  */
 @Lazy //延迟初始化，在第一次获取bean的时候进行初始化

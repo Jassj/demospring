@@ -1,4 +1,4 @@
-package demo.spring.bean;
+package demo.spring.common.bean;
 
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;

@@ -1,4 +1,4 @@
-package demo.spring.aop;
+package demo.spring.common.aop;
 
 public class ConfigurationLoggingAop {
     /**
