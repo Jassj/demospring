@@ -3,7 +3,7 @@ package demo.spring.controller;
 import demo.spring.service.LoginService;
 import demo.spring.common.bean.HttpResult;
 import demo.spring.test.HelloWorld;
-import demo.vo.LoginVo;
+import demo.spring.vo.LoginVo;
 
 import javax.validation.Valid;
 
