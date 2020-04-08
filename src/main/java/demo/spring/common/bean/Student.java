@@ -12,6 +12,10 @@ public class Student {
     private String name;
     private int age;
 
+    public Student() {
+        super();
+    }
+
     public String getName() {
         return name;
     }
@@ -35,6 +39,11 @@ public class Student {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public Student(String name, int age) {
+        this.name = name;
+        this.age = age;
     }
 
     @PostConstruct

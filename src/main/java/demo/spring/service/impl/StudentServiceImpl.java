@@ -37,4 +37,9 @@ public class StudentServiceImpl implements StudentService {
         return studentDao.findStudentByAge(age);
     }
 
+    @Override
+    public void createStudent(Student student) {
+        studentDao.createStudent(student);
+    }
+
 }

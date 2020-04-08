@@ -23,8 +23,8 @@ import java.util.List;
  * @author yuanjie 2019/11/15 18:03
  */
 public class MainApp {
-    private final static ApplicationContext applicationContext = new FileSystemXmlApplicationContext("F:\\IdeaWorkspace\\springdemo\\src\\main\\webapp\\WEB-INF\\config\\Beans.xml");
-//    private final static ApplicationContext applicationContext = new FileSystemXmlApplicationContext("D:\\IdeaWorkspace\\demospring\\src\\main\\webapp\\WEB-INF\\config\\Beans.xml");
+//    private final static ApplicationContext applicationContext = new FileSystemXmlApplicationContext("F:\\IdeaWorkspace\\springdemo\\src\\main\\webapp\\WEB-INF\\config\\Beans.xml");
+    private final static ApplicationContext applicationContext = new FileSystemXmlApplicationContext("D:\\IdeaWorkspace\\demospring\\src\\main\\webapp\\WEB-INF\\config\\Beans.xml");
 
     /**
      * prototype: 作用域
@@ -124,6 +124,8 @@ public class MainApp {
             System.out.println("年龄23的学生ID为" + student1.getId() + ", 姓名是：" + student1.getName());
         }
 
+        // 新增对象
+        studentService.createStudent(new Student("lisa", 21));
     }
 
     public static void main(String[] args) {

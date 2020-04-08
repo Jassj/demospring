@@ -13,4 +13,5 @@ public interface StudentDao {
 
     public List<Student> findStudentByAge(int age);
 
+    public void createStudent(Student student);
 }

@@ -1,9 +1,6 @@
 package demo.spring.service;
 
 import demo.spring.common.bean.Student;
-import demo.spring.dao.StudentDao;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -22,5 +19,7 @@ public interface StudentService {
     public Student queryStudentById(int id);
 
     public List<Student> queryStudentByAge(int age);
+
+    public void createStudent(Student student);
 
 }
