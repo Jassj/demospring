@@ -2,12 +2,15 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/mvc
-       http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+       http://www.springframework.org/schema/mvc/spring-mvc.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <!--
         激活Spring相关注解@Require、@Autowired、@Qualifier、JSR 250的@Resource等
@@ -21,9 +24,8 @@
         @Controller    控制器
         @Configuration Bean配置类,与bean.xml文件用途相同
     -->
-    <context:component-scan base-package="demo.api.controller"/>
-    <context:component-scan base-package="demo.api.service"/>
     <context:component-scan base-package="demo.spring.controller"/>
+    <context:component-scan base-package="demo.spring.common.aop"/>
 
     <mvc:annotation-driven><!--启用MVC配置项,单独使用则注册一系列SpringMVC的基础beans,并适应类路径上可用的依赖项-->
         <mvc:message-converters><!--MVC的消息转换bean,根据spring-mvc.xsd文件进行配置,xsd:element:name属性值对应标签名,xsd:attrubute对应标签的属性值-->
@@ -54,7 +56,6 @@
     <mvc:resources mapping="/pages/**" location="/WEB-INF/pages/">
     </mvc:resources>
 
-    <!--异常处理-->
-
-    <!--Log4J记录日志-->
+    <context:annotation-config/>
+    <aop:aspectj-autoproxy/>  <!--开启对aop切面标签(aop:aspect等)的支持-->
 </beans>

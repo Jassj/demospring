@@ -94,17 +94,6 @@ public class MainApp {
         employee.destroy();
     }
 
-    // 切面
-    public static void aopTest() {
-        try {
-            AopTest aopTest = (AopTest) applicationContext.getBean("aopTest");
-            System.out.println("Number:"+aopTest.getNumber());
-            aopTest.setNumber(12345);
-        } catch (Exception e) {
-//            e.printStackTrace();
-        }
-    }
-
     // Spring Jdbc
     public static void springJdbcTest() {
         StudentService studentService = (StudentService) applicationContext.getBean("studentService");
@@ -136,7 +125,6 @@ public class MainApp {
 //        autowireTest();
 //        annotationTest();
 //        configurationAnnotation();
-//        aopTest();
         springJdbcTest();
     }
 

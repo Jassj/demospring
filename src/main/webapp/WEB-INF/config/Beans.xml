@@ -82,37 +82,38 @@
         激活Spring相关注解@Require、@Autowired、@Qualifier、JSR 250的@Resource等
         1.@Require: 用于setter方法,注解的方法一定要进行依赖注入,否则抛出异常(编译时校验)
         2.@Autowired: 默认情况下依赖是必须的,只能针对对象进行注入,无法对基础类型使用
-            a.用于属性 Field Injection  不推荐
+            a.用于属性 Field Injection
             b.setter方法 根据byType方式进行自动装配
             c.构造函数
         3.@Qualifier: 用于在相同类型bean中注入指定ID,配合@Autowired注解可精确定位bean,消除Spring容器自动注入的混乱情况
-        4.@PostConstruct：初始化回调函数,等价于bean.xml中init-method方法
-        5.@PreDestroy：bean销毁的回调函数,等价于bean.xml中destroy-method方法
+        4.@PostConstruct: 初始化回调函数,等价于bean.xml中init-method方法
+        5.@PreDestroy: bean销毁的回调函数,等价于bean.xml中destroy-method方法
         6.@Resource: @Resource(name= "xxx") 等价于@Autowired的byName形式
         7.@Configuration: 表名此类可以作为Spring IOC容器的bean定义来源 == bean.xml文件 @Bean: 标识此方法返回一个bean实例{@link demo.spring.common.config.BeanConfiguration}
     -->
     <context:annotation-config/>
+    <!--开启对aop切面标签(aop:aspect等)的支持-->
+
+    <aop:aspectj-autoproxy/>
     <!--
         AOP：面向切面的编程
         1.声明切面: aop:aspect,一个提供横切需求APIs的模块
         2.声明切入点: aop:pointcut,程序中使用AOP的点(方法)
         3.声明建议: aop:before、aop:after、aop:after-returning、aop:after-throwing、aop:around
     -->
-    <aop:aspectj-autoproxy/>  <!--开启对aop切面标签(aop:aspect等)的支持-->
-    <bean id="aopTest" class="demo.spring.test.AopTest"/>
-    <!-- 基于xml的切面实现 -->
-    <!--<aop:config>
-        <aop:aspect id="log" ref="loggingAop">
-            <aop:pointcut id="businessService" expression="execution(* demo.spring.test.AopTest.*(..))" />
-            <aop:before pointcut-ref="businessService" method="beforeAdvice"/>
-            <aop:after pointcut-ref="businessService" method="afterAdvice"/>
-            <aop:after-returning pointcut-ref="businessService" returning="retVal" method="afterReturningAdvice"/>
-            <aop:after-throwing pointcut-ref="businessService" throwing="ex" method="AfterThrowingAdvice"/>
-        </aop:aspect>
-    </aop:config>
-
-    <bean id="loggingAop" class="demo.spring.common.aop.ConfigurationLoggingAop"/>-->
-
+    <!--
+        基于xml的切面实现
+        <aop:config>
+            <aop:aspect id="log" ref="loggingAop">
+                <aop:pointcut id="businessService" expression="execution(* demo.spring.test.AopTest.*(..))" />
+                <aop:before pointcut-ref="businessService" method="beforeAdvice"/>
+                <aop:after pointcut-ref="businessService" method="afterAdvice"/>
+                <aop:after-returning pointcut-ref="businessService" returning="retVal" method="afterReturningAdvice"/>
+                <aop:after-throwing pointcut-ref="businessService" throwing="ex" method="AfterThrowingAdvice"/>
+            </aop:aspect>
+        </aop:config>
+        <bean id="loggingAop" class="demo.spring.common.aop.ConfigurationLoggingAop"/>
+    -->
 
     <!-- datasource 数据源-->
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
